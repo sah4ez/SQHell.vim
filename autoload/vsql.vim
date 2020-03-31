@@ -4,7 +4,7 @@ function! vsql#GetResultsFromQuery(command)
     let l:host = g:sqh_connections[g:sqh_connection]['host']
     let l:db = g:sqh_connections[g:sqh_connection]['database']
 
-	let l:connection_details = 'vsql -w ' . l:password . ' -h ' . l:host . ' -d ' . l:db . ' --pset footer' . l:user
+	let l:connection_details = 'vsql -w ' . l:password . ' -h ' . l:host . ' -d ' . l:db . ' -P footer ' . l:user
     let l:system_command = 'echo ' . shellescape(join(split(a:command, "\n"))) . ' | ' . l:connection_details
     let l:query_results = system(l:system_command)
     return l:query_results
@@ -12,7 +12,7 @@ endfunction
 
 
 function! vsql#ShowDatabases()
-    let db_query = 'iSHOW DATABASE DEFAULT ALL;'
+    let db_query = 'SHOW DATABASE DEFAULT ALL;'
     call sqhell#InsertResultsToNewBuffer('SQHDatabase', vsql#GetResultsFromQuery(db_query), 1)
 endfunction
 
